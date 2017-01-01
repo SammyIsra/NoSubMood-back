@@ -1,5 +1,6 @@
 const watson = require('watson-developer-cloud');
 const q = require('q');
+const throat = require('throat');
 
 const credentials = require('./credentials.js');
 
@@ -26,12 +27,16 @@ function analyzeSinglePost(post){
 
     console.log("About to analyze text");
     //Make the request to Watson
-    tone_analyzer.tone({text: textToAnalyze}, function(err, tone){
+    tone_analyzer.tone({
+        text: textToAnalyze,
+        sentences: false
+    }, function(err, tone){
         if(err){
             console.log("Error when calling Watson");
             qPromise.reject(err);
         }else{
             post.tone = tone.document_tone;
+            post.is_analized = true;
             qPromise.resolve(post);
         }
     });
@@ -45,9 +50,11 @@ function analyzeManyPosts(posts){
 
     const count = posts.length;
 
-    var promList = posts.map(function(post){
+    //Limit to 50 calls at a time
+    var promList = posts.map(throat(function(post, i){
+        console.log(i);
         return analyzeSinglePost(post);
-    });
+    }, 50));
 
     //Return a collection of all promises
     return q.all(promList);

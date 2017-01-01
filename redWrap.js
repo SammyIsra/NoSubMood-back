@@ -118,7 +118,7 @@ function findTopN(limit, after, list){
         myLimit = 150;
     }
 
-    return findTopPosts(after, myLimit)
+    return findTopPosts(after, (myLimit-holdingList.length))
         .then(function(data){
 
             //Push the data into our holding list

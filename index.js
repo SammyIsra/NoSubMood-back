@@ -12,7 +12,7 @@ red.auth()
     console.log(data);
 
     //Search for the top N posts
-    return red.findTopN(50);
+    return red.findTopN(500);
 })
 .then(function(data){
 
@@ -21,6 +21,7 @@ red.auth()
         return {
             _id: cur.data.id,
             is_self: cur.data.is_self,
+            is_analized: false,
             body: cur.data.selftext,
             title: cur.data.title,
             when: cur.data.created_utc*1000 // * 1000 because it is seconds instead of miliseconds
