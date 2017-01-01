@@ -30,7 +30,7 @@ const insertPosts = function(posts, isUpsert) {
                     update: {
                         $set: post
                     },
-                    upsert: true
+                    upsert: isUpsert
                 }
             }
         });
