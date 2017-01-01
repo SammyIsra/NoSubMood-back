@@ -49,8 +49,8 @@ function analyzeManyPosts(posts){
         return analyzeSinglePost(post);
     });
 
+    //Return a collection of all promises
     return q.all(promList);
-
 }
 
 module.exports = {
