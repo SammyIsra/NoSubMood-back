@@ -71,13 +71,13 @@ function whoami(){
     return qPromise.promise;
 }
 
-function findTopPosts(after, limit){
+function findTopPosts(subreddit, after, limit){
 
     var qPromise = q.defer();
 
     request({
         method: "GET",
-        url: "https://oauth.reddit.com/r/NoMansSkyTheGame/top",
+        url: "https://oauth.reddit.com/r/"+subreddit+"/top",
         headers: the_headers, //the_headers is a global variable rn
         qs: {
             limit: (limit>100)?100:limit,
@@ -99,7 +99,7 @@ function findTopPosts(after, limit){
 
 //This is confusing, reference following link
 // http://stackoverflow.com/questions/40857793/how-to-make-http-requests-that-need-to-happen-in-order-and-depend-on-the-data-r/40874936#40874936
-function findTopN(limit, after, list){
+function findTopN(subreddit, limit, after, list){
 
     var holdingList;    //List of posts that we have so far fetched
     var myLimit;        //Limit of posts we want
@@ -118,7 +118,7 @@ function findTopN(limit, after, list){
         myLimit = 150;
     }
 
-    return findTopPosts(after, (myLimit-holdingList.length))
+    return findTopPosts(subreddit, after, (myLimit-holdingList.length))
         .then(function(data){
 
             //Push the data into our holding list
@@ -134,7 +134,7 @@ function findTopN(limit, after, list){
                 // Pagination, step forward
                 var after = data.data.after;
                 //Recursive call. Send the pagination anchor, the list of all items, and the items we have left
-                return findTopN(myLimit, after, holdingList);
+                return findTopN(subreddit, myLimit, after, holdingList);
             } else {
                 //Base case, return the list
                 return holdingList;

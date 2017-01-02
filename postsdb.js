@@ -12,8 +12,7 @@ const insertPosts = function(posts, isUpsert) {
 
         if(err){
             console.log("Error!");
-            console.log(err);
-            return err;
+            qPromise.reject(err);
         }
 
         console.log("DB Reached");
@@ -46,13 +45,55 @@ const insertPosts = function(posts, isUpsert) {
 
             console.log("Closing connection to database");
             db.close();
-        })
+        });
 
     });
 
     return qPromise.promise;
 }
 
+function fetchAllFromSubreddit(subreddit){
+
+    var qPromise = q.defer();
+
+    MongoClient.connect(MongoURL, function(err, db){
+
+        if(err){
+            console.log("Error!");
+            qPromise.reject(err);
+        }
+
+        var query = {};
+
+        if(subreddit){
+            query.subreddit = subreddit.toLowerCase();
+        }
+
+        console.log("DB Reached");
+
+        const postsList = db.collection('postlist');
+
+        postsList.find(query).toArray(function(err, result){
+            if(err){
+                qPromise.reject(err);
+            } else {
+                qPromise.resolve(result);
+            }
+
+            console.log("Closing connection to database");
+            db.close();
+        });
+
+        // postsList.find({}).forEach( function(e){
+        //     e.subreddit = e.subreddit.toLowerCase();
+        //     postsList.save(e)
+        // })
+    });
+
+    return qPromise.promise;
+}
+
 module.exports = {
-    insertAll: insertPosts
+    insertAll: insertPosts,
+    fetchAllFromSubreddit: fetchAllFromSubreddit
 }
