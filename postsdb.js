@@ -2,9 +2,6 @@ const MongoClient = require("mongodb").MongoClient;
 const q = require('q');
 const credentials = require('./credentials.js');
 
-console.log("from db creds")
-console.log(credentials);
-
 const MongoURL = credentials.mlab.connString;
 
 const insertPosts = function(posts, isUpsert) {
