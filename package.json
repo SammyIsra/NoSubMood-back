@@ -1,19 +1,20 @@
 {
-    "name": "nosubmood",
-    "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "mongodb": "^2.2.16",
-        "q": "^1.4.1",
-        "request": "^2.79.0",
-        "throat": "^3.0.0",
-        "watson-developer-cloud": "^2.14.3"
-    }
+  "name": "nosubmood",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.16",
+    "q": "^1.4.1",
+    "request": "^2.79.0",
+    "throat": "^3.0.0",
+    "watson-developer-cloud": "^2.14.3"
+  }
 }

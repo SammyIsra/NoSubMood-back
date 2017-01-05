@@ -70,6 +70,7 @@ function fetchAllFromSubreddit(subreddit){
         }
 
         console.log("DB Reached");
+        console.log("Querying subreddit: " + query.subreddit);
 
         const postsList = db.collection('postlist');
 
@@ -80,7 +81,7 @@ function fetchAllFromSubreddit(subreddit){
                 qPromise.resolve(result);
             }
 
-            console.log("Closing connection to database");
+            //Closing db
             db.close();
         });
 
