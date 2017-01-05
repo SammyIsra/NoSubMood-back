@@ -2,9 +2,11 @@
 var credentials;
 
 try {
+    console.log("trying creds");
     var creds = require('./secredentials.js');
     credentials = creds;
 }catch(e){
+    console.log("failed creds");
     credentials = {
         reddit: {
             user: process.env.REDDIT_USER,
@@ -22,5 +24,7 @@ try {
         }
     }
 } finally {
+    console.log("creds: ");
+    console.log(credentials);
     module.exports = credentials;
 }
