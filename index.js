@@ -54,7 +54,7 @@ app.get('/submood', function(req, res){
     })
 });
 
-app.listen(process.env.PORT, function(){
+app.listen(process.env.PORT || 3001, function(){
     console.log("Ready");
 });
 

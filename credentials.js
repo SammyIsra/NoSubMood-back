@@ -1,4 +1,5 @@
 //If the credentials file is not found (bc we're not in local) use environment settings
+var credentials;
 
 try {
     var creds = require('./secredentials.js');
