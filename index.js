@@ -15,12 +15,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Logging middleware
+app.use(function(req, res, next){
+    console.log("[" + (new Date()).toISOString() + "] " + req.method + " -> " + req.originalUrl);
+    next();
+});
+
 // GET to /submood.
 // query.subreddit contains the subreddit fo fetch from
 app.get('/submood', function(req, res){
-
-    console.log("=======================\nGET to /submood\nArgs:");
-    console.log(req.query);
 
     //Get the data that we have from param
     getAllPostsFromSubreddit(req.query.subreddit.toLowerCase())
